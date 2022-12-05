@@ -16,7 +16,7 @@ class DeveloperType extends AbstractType
             ->add('designation')
             ->add('creationDate')
             ->add('parent', EntityType::class, [
-                'class' => 'App\Entity\Developer',
+                'class' => 'App\Entity\Publisher',
                 'choice_label' => 'designation',
                 'multiple' => false,
                 'expanded' => false,

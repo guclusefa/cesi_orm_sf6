@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: GameRepository::class)]
 class Game
@@ -17,24 +18,33 @@ class Game
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max: 255)]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotBlank]
+    #[Assert\LessThanOrEqual('today')]
     private ?\DateTimeInterface $releaseDate = null;
 
     #[ORM\ManyToMany(targetEntity: Type::class, inversedBy: 'games')]
+    #[ORM\JoinTable(name: 'game_type')]
     private Collection $types;
 
     #[ORM\ManyToMany(targetEntity: Genre::class, inversedBy: 'games')]
+    #[ORM\JoinTable(name: 'game_genre')]
     private Collection $genres;
 
     #[ORM\ManyToMany(targetEntity: Platform::class, inversedBy: 'games')]
+    #[ORM\JoinTable(name: 'game_platform')]
     private Collection $platforms;
 
     #[ORM\ManyToOne(inversedBy: 'games')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Publisher $publisher = null;
 
     #[ORM\ManyToMany(targetEntity: Developer::class, inversedBy: 'games')]
+    #[ORM\JoinTable(name: 'game_developer')]
     private Collection $developers;
 
     public function __construct()

@@ -14,10 +14,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class GameController extends AbstractController
 {
     #[Route('/', name: 'app_game_index', methods: ['GET'])]
-    public function index(GameRepository $gameRepository): Response
+    public function index(GameRepository $gameRepository, Request $request): Response
     {
+        // parameter get "s"
+        $search = $request->query->get('s');
+        // search from search if not empty
+        !empty($search) ? $games = $gameRepository->searchByPublisher($search) : $games = $gameRepository->findAll();
         return $this->render('game/index.html.twig', [
-            'games' => $gameRepository->findAll(),
+            'games' => $games,
         ]);
     }
 

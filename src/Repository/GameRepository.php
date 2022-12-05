@@ -39,6 +39,26 @@ class GameRepository extends ServiceEntityRepository
         }
     }
 
+    // search by title
+    public function search(string $search): array
+    {
+        $qb = $this->createQueryBuilder('g');
+        $qb->where('g.title LIKE :search')
+            ->setParameter('search', '%' . $search . '%');
+        return $qb->getQuery()->getResult();
+    }
+
+    // search by publisher entity
+    public function searchByPublisher(string $search): array
+    {
+        $qb = $this->createQueryBuilder('g');
+        // publisher designation
+        $qb->join('g.publisher', 'p')
+            ->where('p.designation LIKE :search')
+            ->setParameter('search', '%' . $search . '%');
+        return $qb->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Game[] Returns an array of Game objects
 //     */

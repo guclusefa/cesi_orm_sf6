@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Platform index{% endblock %}
+
+{% block body %}
+    <h1>Platform index  ({{ platforms | length }})</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Designation</th>
+                <th>Games</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for platform in platforms %}
+            <tr>
+                <td>{{ platform.id }}</td>
+                <td>{{ platform.designation }}</td>
+                <td>
+                    {% for game in platform.games %}
+                        {{ game.title }}<br>
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="{{ path('app_platform_show', {'id': platform.id}) }}">show</a>
+                    <a href="{{ path('app_platform_edit', {'id': platform.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_platform_new') }}">Create new</a>
+{% endblock %}

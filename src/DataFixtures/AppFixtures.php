@@ -121,6 +121,9 @@ class AppFixtures extends Fixture
             'Call of Duty: Infinite Warfare',
         ];
 
+        // begin transaction
+        $manager->getConnection()->beginTransaction();
+        $manager->getConnection()->setAutoCommit(false);
         // create 10 genres
         for ($i = 0; $i < 10; $i++) {
             $genre = new Genre();
@@ -178,5 +181,7 @@ class AppFixtures extends Fixture
             $manager->persist($game);
         }
         $manager->flush();
+        // commit transaction
+        $manager->getConnection()->commit();
     }
 }

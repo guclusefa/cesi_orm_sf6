@@ -18,6 +18,8 @@
 ## Triggers
 - Lors de la suppression d'un publisher, tous les developpeurs associés sont supprimés
 - Lors de la suppression d'un développeur, tous les jeux associés sont supprimés
+## Procédures stockées
+- récupère tous les developpeurs d'un éditeur
 ## Contraintes
 - Un jeu est développé par au minimum un développeur
 - Un jeu est édité par au minimum un éditeur

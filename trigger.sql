@@ -1,0 +1,1 @@
+CREATE TRIGGER `delete_game_developer` AFTER DELETE ON `developer` FOR EACH ROW DELETE FROM game_developer WHERE developer_id = OLD.id;
